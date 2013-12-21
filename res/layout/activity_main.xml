@@ -18,13 +18,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:id="@+id/noOfDevices" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:id="@+id/message_view" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
             android:gravity="center_horizontal"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/listView" />
+
 </RelativeLayout>
