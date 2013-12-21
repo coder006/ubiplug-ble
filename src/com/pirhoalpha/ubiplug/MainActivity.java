@@ -36,7 +36,8 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
 	private BluetoothGatt mConnectedGatt;
 	private SparseArray<BluetoothDevice> mDevices;
 	private Handler mHandler;
-	private ProgressBar mProgress;	//ProgressBar to show scanning progress
+	private ProgressBar mProgress;//ProgressBar to show scanning progress
+	private boolean DEVICE_FOUND = false;
 	private static final String TAG = "BluetoothGattActivity";
 	private final static int REQUEST_ENABLE_BT = 1;
 	private static final String DEVICE_NAME = "Device Name";	
@@ -204,4 +205,34 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
             invalidateOptionsMenu();
         }
     }
+    
+    public boolean onOptionsItemSelected(MenuItem item){
+    	for(int j=0;j<mDevices.size();j++){
+    		int key = mDevices.keyAt(j);
+    		if(mDevices.get(key).getName().equals(item.getItemId())){
+    			DEVICE_FOUND = true;
+    		}
+    			
+    	}
+		return DEVICE_FOUND;
+    	
+    }
+    private BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+        @Override
+        public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+            //Connection established
+            if (status == BluetoothGatt.GATT_SUCCESS
+                    && newState == BluetoothProfile.STATE_CONNECTED) {
+     
+                //Discover services
+                gatt.discoverServices();
+     
+            } else if (status == BluetoothGatt.GATT_SUCCESS
+                    && newState == BluetoothProfile.STATE_DISCONNECTED) {
+     
+                //Handle a disconnect event
+     
+            }
+        }
+};
 }
