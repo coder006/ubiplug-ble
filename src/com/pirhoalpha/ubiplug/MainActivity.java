@@ -210,10 +210,12 @@ public class MainActivity extends Activity implements BluetoothAdapter.LeScanCal
     	for(int j=0;j<mDevices.size();j++){
     		int key = mDevices.keyAt(j);
     		if(mDevices.get(key).getName().equals(item.getItemId())){
+    			mDevices.get(key).connectGatt(this, true, mGattCallback);
     			DEVICE_FOUND = true;
     		}
     			
     	}
+    	
 		return DEVICE_FOUND;
     	
     }
